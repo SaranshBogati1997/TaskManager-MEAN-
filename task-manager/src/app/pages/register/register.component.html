@@ -1,0 +1,36 @@
+<div class="centered-content ">
+    <div class="register-container has-background-light p-5 is-rounded">
+        <h1 class="title has-text-info is-size-2 has-text-weight-bold">register</h1>
+        <div class="field has-background-light">
+            <p class="control has-icons-left ">
+
+                <input class="input" type="email" placeholder="Username/Email" [(ngModel)] = "username">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="password" placeholder="Password" [(ngModel)] = "password">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control">
+                <button class="button is-info" (click) ="register()">
+                    Register
+                </button>
+            </p>
+        </div>
+        
+        <div class="field" *ngIf = "hasError">
+            <p class="control has-text-danger">               
+                Invalid Username/Password    
+            </p>
+        </div>
+    </div>
+</div>

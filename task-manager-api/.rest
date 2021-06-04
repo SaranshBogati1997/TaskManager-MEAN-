@@ -1,0 +1,48 @@
+GET http://localhost:3000/api/task/60b5d45e68878b6117ab50b3
+
+###
+
+POST http://localhost:3000/task 
+Content-Type: application/json
+
+{
+    "title":"Office Tasks" 
+}
+###
+DELETE  http://localhost:3000/task/60b395c453b9f71989889ee7
+###
+PATCH http://localhost:3000/task/60b3960d53b9f71989889ee8
+Content-Type: application/json
+
+{
+    "title":"Updated House Tasks" 
+}
+
+###
+GET http://localhost:3000/task/subtask/60b39ab4ec368c2052609884
+
+###
+GET http://localhost:3000/api/subtask/60b5d45e68878b6117ab50b3
+
+###
+
+POST http://localhost:3000/subtask 
+Content-Type: application/json
+
+{
+    "title":"Office Tasks 1" ,
+    "_taskId":"60b39ab4ec368c2052609884"
+}
+
+###
+ DELETE http://localhost:3000/subtask/60b38ffb88f9261058c3d724
+
+###
+
+ PATCH http://localhost:3000/subtask/60b3922306ffcc1400119f6b
+ Content-Type: application/json
+
+ {
+     "title":"updated new house task"
+ }
+ 

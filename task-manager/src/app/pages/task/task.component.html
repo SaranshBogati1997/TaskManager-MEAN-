@@ -1,0 +1,130 @@
+<div class="welcome-text mt-5 has-text-right has-text-white is-size-6">
+  <span>
+    Welcome {{currentUser?.username}}
+  </span>
+  <a class="has-text-light mx-3" (click) = "signOut()">
+    <i class="fas fa-sign-out-alt" title="logout"></i>
+  </a>
+</div>
+<div class="centered-content">
+  
+
+    <div class="task-container ">
+        <div class="sidebar p-5 has-background-light ">
+            <h1 class="title has-text-info">Tasks</h1>    
+            <div class="task-menu">
+                <div class="task-menu-item" *ngFor = "let tasks of taskList"  [ngClass] ="{'is-active':tasks._id === currentTaskId }" (click) ="taskClickEvent(tasks)">
+                  <span>
+                    {{ tasks.title}}
+                  </span>
+                    <div class="icon">
+                      <a class="has-text-info-dark" (click) = "deleteTask(tasks)">
+                        <i class="fas fa-trash" ></i>
+                      </a>
+                    </div>
+                </div>                
+            </div>
+            <button class="button has-background-info-dark has-text-light" (click) ="showCreateTaskModal = !showCreateTaskModal">+ New Task</button>
+        </div>
+    
+        <div class="task-list-container  p-5">
+            <h1 class="title has-text-info">SubTasks</h1>
+            <div class="list-menu">
+                <div class="list-menu-item" *ngFor = "let subTasks of currentSubTaskList">
+                    <span>
+                      {{ subTasks.title }}
+                    </span>
+                  
+                    <span class="icon ">
+                      <a class="has-text-info" (click) = "showSubTaskEditModal(subTasks)">
+                        <i class="fas fa-pencil-alt" ></i>
+                      </a>   
+                      <a class="has-text-info-dark" (click) = "deleteSubTasks(subTasks)">
+                        <i class="fas fa-trash" ></i>
+                      </a>
+                    </span>
+                </div>   
+                       
+            </div>
+            <div class="has-text-right">
+            <button class="button has-background-info has-text-white is-size-4 has-text-weight-bold add-subtask-button" (click) = "showCreateSubTaskModal = !showCreateSubTaskModal" *ngIf = "currentTaskId && currentTaskId !== ''">+</button>
+          </div>
+        </div>
+
+    </div>
+   
+</div>
+
+<div class="modal" [ngClass] = "{'is-active': showCreateTaskModal}">
+    <div class="modal-background" (click) ="showCreateTaskModal = !showCreateTaskModal"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Create New Task</p>
+      </header>
+      <section class="modal-card-body">
+        <div class="field ">
+            <div class="field-label is-normal has-text-left">
+              <label class="label">Title</label>
+            </div>
+            <div class="field-body mt-2">
+              <div class="field">
+                <p class="control">
+                    <input  class = "input" type="text" name="taskName" placeholder="Eg: Office task" [(ngModel)] = "newTaskTitle" >
+                </p>
+              </div>
+            </div>
+          </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" (click) ="onTaskModalSave()" [disabled] = "!newTaskTitle || newTaskTitle == ''">Add Task</button>
+        <button class="button" (click) ="showCreateTaskModal = !showCreateTaskModal">Cancel</button>
+      </footer>
+    </div>
+</div>
+
+<div class="modal" [ngClass] = "{'is-active': showCreateSubTaskModal}">
+    <div class="modal-background" (click) ="showCreateSubTaskModal = !showCreateSubTaskModal"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Create New SubTask</p>
+      </header>
+      <section class="modal-card-body">
+        <div class="field ">
+          <!-- task id  -->
+          <div class="field-label is-normal has-text-left">
+            <label class="label">Task Id</label>
+          </div>
+          <div class="field-body mt-2">
+            <div class="field">
+              <p class="control">
+                  <input  class = "input" type="text" [value] = "currentTaskId" readonly>
+              </p>
+            </div>
+          </div>
+
+          <!-- sub task title  -->
+            <div class="field-label is-normal has-text-left">
+              <label class="label">Title</label>
+            </div>
+
+            <div class="field-body mt-2">
+              <div class="field">
+                <p class="control">
+                    <input  class = "input" type="text"  placeholder="Eg: Office task" [(ngModel)] = "newSubTaskTitle">
+                </p>
+              </div>
+            </div>
+          </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" (click) ="onSubTaskModalSave()" [disabled] = "!newSubTaskTitle || newSubTaskTitle == ''">Add Subtask</button>
+        <button class="button" (click) ="showCreateSubTaskModal = !showCreateSubTaskModal">Cancel</button>
+      </footer>
+    </div>
+</div>
+
+<div class="notification is-warning" *ngIf = "showNotification">
+  <button class="delete" (click) ="showNotification = !showNotification"></button>
+  {{ notificationMessage }}
+</div>
+
